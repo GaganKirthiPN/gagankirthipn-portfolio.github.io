@@ -16,8 +16,8 @@ body{
 margin:0;
 font-family:'Playfair Display',serif;
 color:white;
-background: radial-gradient(circle at bottom,#020617 0%,#000000 85%);
 overflow-x:hidden;
+background:#000;
 }
 
 /* SCROLL BAR */
@@ -33,7 +33,7 @@ z-index:1000;
 box-shadow:0 0 10px #3b82f6;
 }
 
-/* BACKGROUND */
+/* BACKGROUND CANVAS */
 
 #space{
 position:fixed;
@@ -42,6 +42,23 @@ left:0;
 width:100%;
 height:100%;
 z-index:-1;
+}
+
+/* NEBULA */
+
+.nebula{
+position:fixed;
+width:800px;
+height:800px;
+background:radial-gradient(circle,#3b82f640,transparent);
+filter:blur(120px);
+animation:nebulaMove 25s infinite alternate;
+z-index:-2;
+}
+
+@keyframes nebulaMove{
+0%{transform:translate(-200px,-100px)}
+100%{transform:translate(300px,200px)}
 }
 
 /* NAVBAR */
@@ -165,8 +182,7 @@ animation:energy 3s linear infinite;
 }
 
 .card:hover{
-transform:translateY(-10px);
-box-shadow:0 0 25px #2563eb;
+box-shadow:0 0 30px #3b82f6;
 background:linear-gradient(135deg,#1e293b,#4c1d95);
 }
 
@@ -188,29 +204,31 @@ transition:0.4s;
 text-align:center;
 padding-bottom:20px;
 position:relative;
+border:1px solid rgba(255,255,255,0.05);
+}
+
+/* GLOW EDGE */
+
+.project:hover{
+transform:translateY(-8px);
+box-shadow:0 0 25px #3b82f6;
 }
 
 /* ANIMATED BORDER */
 
-.project::before{
+.project::after{
 content:"";
 position:absolute;
-inset:0;
-padding:2px;
+inset:-2px;
 border-radius:12px;
 background:linear-gradient(120deg,#3b82f6,#9333ea,#3b82f6);
 background-size:300% 300%;
 animation:borderMove 6s linear infinite;
--webkit-mask:
-linear-gradient(#000 0 0) content-box,
-linear-gradient(#000 0 0);
--webkit-mask-composite:xor;
-mask-composite:exclude;
 opacity:0;
-transition:0.4s;
+z-index:-1;
 }
 
-.project:hover::before{
+.project:hover::after{
 opacity:1;
 }
 
@@ -237,7 +255,7 @@ color:#cbd5f5;
 font-size:14px;
 }
 
-/* PROJECT TAGS */
+/* TAGS */
 
 .tags{
 display:flex;
@@ -303,6 +321,8 @@ font-size:30px;
 <body>
 
 <div id="progress"></div>
+
+<div class="nebula"></div>
 
 <canvas id="space"></canvas>
 
