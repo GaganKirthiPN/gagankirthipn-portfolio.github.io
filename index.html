@@ -20,7 +20,7 @@ background: radial-gradient(circle at bottom,#020617 0%,#000000 85%);
 overflow-x:hidden;
 }
 
-/* SCROLL PROGRESS BAR */
+/* SCROLL BAR */
 
 #progress{
 position:fixed;
@@ -107,7 +107,7 @@ color:white;
 font-family:'Orbitron',sans-serif;
 }
 
-/* SECTIONS */
+/* SECTION */
 
 section{
 padding:80px 20px;
@@ -115,7 +115,7 @@ max-width:1100px;
 margin:auto;
 }
 
-/* FADE */
+/* FADE ANIMATION */
 
 .fade{
 opacity:0;
@@ -146,7 +146,7 @@ position:relative;
 overflow:hidden;
 }
 
-/* ELECTRIC ENERGY EFFECT */
+/* ELECTRIC ENERGY */
 
 .card::before{
 content:"";
@@ -170,7 +170,7 @@ box-shadow:0 0 25px #2563eb;
 background:linear-gradient(135deg,#1e293b,#4c1d95);
 }
 
-/* PROJECTS */
+/* PROJECT GRID */
 
 .projects{
 display:grid;
@@ -178,20 +178,82 @@ grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:30px;
 }
 
+/* PROJECT CARD */
+
 .project{
 background:#1e293b;
 border-radius:12px;
 overflow:hidden;
 transition:0.4s;
+text-align:center;
+padding-bottom:20px;
+position:relative;
+}
+
+/* ANIMATED BORDER */
+
+.project::before{
+content:"";
+position:absolute;
+inset:0;
+padding:2px;
+border-radius:12px;
+background:linear-gradient(120deg,#3b82f6,#9333ea,#3b82f6);
+background-size:300% 300%;
+animation:borderMove 6s linear infinite;
+-webkit-mask:
+linear-gradient(#000 0 0) content-box,
+linear-gradient(#000 0 0);
+-webkit-mask-composite:xor;
+mask-composite:exclude;
+opacity:0;
+transition:0.4s;
+}
+
+.project:hover::before{
+opacity:1;
+}
+
+@keyframes borderMove{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
 }
 
 .project img{
 width:100%;
+height:180px;
+object-fit:cover;
 }
 
-.project:hover{
-transform:scale(1.05);
-box-shadow:0 0 30px #2563eb;
+.project h3{
+margin-top:15px;
+font-family:'Orbitron',sans-serif;
+}
+
+.project p{
+margin:10px 20px;
+color:#cbd5f5;
+font-size:14px;
+}
+
+/* PROJECT TAGS */
+
+.tags{
+display:flex;
+justify-content:center;
+gap:8px;
+flex-wrap:wrap;
+}
+
+.tag{
+background:#020617;
+border:1px solid #3b82f6;
+color:#60a5fa;
+font-size:12px;
+padding:4px 10px;
+border-radius:20px;
+font-family:'Orbitron',sans-serif;
 }
 
 /* CONTACT */
@@ -273,30 +335,20 @@ Download Resume
 </div>
 
 <section id="about" class="fade">
-
 <h2>About Me</h2>
-
 <p>
 Passionate Electrical & Electronics Engineering student focused on
 embedded systems, smart energy technologies and intelligent automation.
 </p>
-
 </section>
 
 <section id="education" class="fade">
-
 <h2>Education</h2>
-
 <div class="card">
-
 <h3>B.E Electrical & Electronics Engineering</h3>
-
 <p>University of Mysore</p>
-
 <p>Expected Graduation: 2026</p>
-
 </div>
-
 </section>
 
 <section id="skills" class="fade">
@@ -337,15 +389,41 @@ embedded systems, smart energy technologies and intelligent automation.
 <div class="projects">
 
 <div class="project">
+
 <img src="solar.jpg">
+
 <h3>Solar Tracking System</h3>
-<p>Automatic solar tracking using sensors and Arduino.</p>
+
+<p>
+Automatic solar tracking using sensors and Arduino
+to improve solar panel efficiency.
+</p>
+
+<div class="tags">
+<span class="tag">Arduino</span>
+<span class="tag">Embedded</span>
+<span class="tag">Renewable</span>
+</div>
+
 </div>
 
 <div class="project">
+
 <img src="iot.jpg">
+
 <h3>Smart Energy Monitor</h3>
-<p>IoT electricity monitoring using ESP32.</p>
+
+<p>
+IoT electricity monitoring using ESP32
+for real-time energy analysis.
+</p>
+
+<div class="tags">
+<span class="tag">IoT</span>
+<span class="tag">ESP32</span>
+<span class="tag">Embedded</span>
+</div>
+
 </div>
 
 </div>
@@ -382,7 +460,7 @@ linkedin.com/in/gagankirthipn
 
 <script>
 
-/* SCROLL PROGRESS BAR */
+/* SCROLL BAR */
 
 window.addEventListener("scroll",()=>{
 let winScroll=document.body.scrollTop||document.documentElement.scrollTop;
@@ -391,7 +469,7 @@ let scrolled=(winScroll/height)*100;
 document.getElementById("progress").style.width=scrolled+"%";
 });
 
-/* TWINKLING STARS + CONSTELLATION */
+/* TWINKLING STARS */
 
 const canvas=document.getElementById("space");
 const ctx=canvas.getContext("2d");
@@ -438,7 +516,7 @@ ctx.fill();
 
 ctx.globalAlpha=1;
 
-/* CURSOR CONSTELLATION */
+/* CONSTELLATION */
 
 if(mouse.x){
 
@@ -464,7 +542,7 @@ requestAnimationFrame(drawStars);
 
 drawStars();
 
-/* SCROLL FADE */
+/* FADE SCROLL */
 
 const observer=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
