@@ -113,7 +113,14 @@ width:300px;
 background:#1e293b;
 border-radius:12px;
 overflow:hidden;
-transition:0.3s;
+transition:0.4s;
+opacity:0;
+transform:translateY(40px);
+}
+
+.project.show{
+opacity:1;
+transform:translateY(0);
 }
 
 .project img{
@@ -192,10 +199,8 @@ padding:40px;
 <h2>About Me</h2>
 
 <p>
-
 Passionate Electrical & Electronics Engineering student focused on
 embedded systems, smart energy technologies and intelligent automation.
-
 </p>
 
 </section>
@@ -223,33 +228,24 @@ embedded systems, smart energy technologies and intelligent automation.
 <div class="skills">
 
 <div class="card">
-
 <h3>Programming</h3>
-
 <p>Python</p>
 <p>C</p>
 <p>MATLAB</p>
-
 </div>
 
 <div class="card">
-
 <h3>Hardware</h3>
-
 <p>Arduino</p>
 <p>ESP32</p>
 <p>Raspberry Pi</p>
-
 </div>
 
 <div class="card">
-
 <h3>Tools</h3>
-
 <p>Proteus</p>
 <p>LTSpice</p>
 <p>AutoCAD Electrical</p>
-
 </div>
 
 </div>
@@ -263,23 +259,15 @@ embedded systems, smart energy technologies and intelligent automation.
 <div class="projects">
 
 <div class="project">
-
 <img src="solar.jpg">
-
 <h3>Solar Tracking System</h3>
-
 <p>Automatic solar tracking using sensors and Arduino.</p>
-
 </div>
 
 <div class="project">
-
 <img src="iot.jpg">
-
 <h3>Smart Energy Monitor</h3>
-
 <p>IoT electricity monitoring using ESP32.</p>
-
 </div>
 
 </div>
@@ -305,14 +293,12 @@ LinkedIn:
 </section>
 
 <footer>
-
 © 2026 Gagan Kirthi P N
-
 </footer>
 
 <script>
 
-/* GALAXY STAR BACKGROUND */
+/* CANVAS SETUP */
 
 const canvas=document.getElementById("space");
 const ctx=canvas.getContext("2d");
@@ -320,33 +306,134 @@ const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
+/* STARS */
+
 let stars=[];
+let shootingStars=[];
+let mouse={x:null,y:null};
 
-for(let i=0;i<300;i++){
-
+for(let i=0;i<250;i++){
 stars.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
-size:Math.random()*2
+size:Math.random()*2,
+speed:Math.random()*0.2
+});
+}
+
+/* SHOOTING STARS */
+
+function createShootingStar(){
+shootingStars.push({
+x:Math.random()*canvas.width,
+y:0,
+length:300,
+speed:8
+});
+}
+
+setInterval(createShootingStar,4000);
+
+/* MOUSE INTERACTION */
+
+window.addEventListener("mousemove",e=>{
+mouse.x=e.x;
+mouse.y=e.y;
 });
 
-}
+/* DRAW */
 
 function draw(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height);
 
-ctx.fillStyle="white";
+/* STARS */
 
 stars.forEach(s=>{
+
+s.y+=s.speed;
+
+if(s.y>canvas.height) s.y=0;
+
 ctx.beginPath();
 ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
+ctx.fillStyle="white";
 ctx.fill();
+
+/* CONSTELLATION LINES */
+
+stars.forEach(s2=>{
+let dist=Math.hypot(s.x-s2.x,s.y-s2.y);
+
+if(dist<100){
+ctx.strokeStyle="rgba(100,150,255,0.1)";
+ctx.beginPath();
+ctx.moveTo(s.x,s.y);
+ctx.lineTo(s2.x,s2.y);
+ctx.stroke();
+}
 });
 
+/* MOUSE GALAXY EFFECT */
+
+if(mouse.x){
+let dist=Math.hypot(s.x-mouse.x,s.y-mouse.y);
+
+if(dist<120){
+ctx.beginPath();
+ctx.moveTo(s.x,s.y);
+ctx.lineTo(mouse.x,mouse.y);
+ctx.strokeStyle="rgba(80,180,255,0.3)";
+ctx.stroke();
+}
 }
 
-setInterval(draw,40);
+});
+
+/* SHOOTING STARS */
+
+shootingStars.forEach((s,i)=>{
+
+ctx.beginPath();
+ctx.moveTo(s.x,s.y);
+ctx.lineTo(s.x+s.length,s.y+s.length);
+ctx.strokeStyle="white";
+ctx.lineWidth=2;
+ctx.stroke();
+
+s.x+=s.speed;
+s.y+=s.speed;
+
+if(s.y>canvas.height){
+shootingStars.splice(i,1);
+}
+
+});
+
+requestAnimationFrame(draw);
+}
+
+draw();
+
+/* PARALLAX SCROLL */
+
+window.addEventListener("scroll",()=>{
+canvas.style.transform=`translateY(${window.scrollY*0.2}px)`;
+});
+
+/* PROJECT ANIMATION */
+
+const observer=new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+});
+
+document.querySelectorAll(".project").forEach(el=>{
+observer.observe(el);
+});
 
 </script>
 
