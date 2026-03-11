@@ -8,19 +8,19 @@
 
 <title>GAGAN KIRTHI P N | Electrical and Electronics Engineer</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@300;500&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 
 body{
 margin:0;
-font-family:'Orbitron',sans-serif;
+font-family:'Playfair Display',serif;
 color:white;
 overflow-x:hidden;
-background: radial-gradient(circle at bottom,#020617 0%,#000000 80%);
+background: radial-gradient(circle at bottom,#020617 0%,#000000 85%);
 }
 
-/* CANVAS BACKGROUND */
+/* CANVAS */
 
 #space{
 position:fixed;
@@ -30,8 +30,6 @@ width:100%;
 height:100%;
 z-index:-2;
 }
-
-/* ELECTRIC CIRCUIT CANVAS */
 
 #circuit{
 position:fixed;
@@ -59,6 +57,7 @@ color:#cbd5f5;
 margin:15px;
 text-decoration:none;
 font-weight:300;
+font-family:'Orbitron',sans-serif;
 }
 
 /* HERO */
@@ -73,35 +72,62 @@ padding-bottom:100px;
 position:relative;
 }
 
-/* PLANET */
+/* 3D PLANET */
 
 .planet{
 position:absolute;
-width:340px;
-height:340px;
+width:420px;
+height:420px;
 border-radius:50%;
 background: radial-gradient(circle at 30% 30%,#3b82f6,#020617);
-box-shadow:0 0 80px rgba(59,130,246,0.7);
-animation:spin 40s linear infinite;
+box-shadow:0 0 120px rgba(59,130,246,0.7);
+animation:rotatePlanet 35s linear infinite;
 z-index:-1;
+transform-style:preserve-3d;
 }
 
-@keyframes spin{
-0%{transform:rotate(0deg)}
-100%{transform:rotate(360deg)}
+@keyframes rotatePlanet{
+0%{transform:rotateY(0deg)}
+100%{transform:rotateY(360deg)}
 }
 
-/* PROFILE IMAGE */
+/* PROFILE */
+
+.profile-container{
+position:relative;
+}
+
+.profile-container::before{
+content:"";
+position:absolute;
+top:-30px;
+left:-30px;
+width:280px;
+height:280px;
+border-radius:50%;
+background:radial-gradient(circle,#3b82f6,#000000);
+filter:blur(50px);
+z-index:-1;
+animation:pulseGlow 4s infinite;
+}
+
+@keyframes pulseGlow{
+0%{opacity:0.7}
+50%{opacity:1}
+100%{opacity:0.7}
+}
 
 .hero img{
 width:220px;
 border-radius:50%;
-z-index:2;
 box-shadow:0 0 30px #2563eb;
 }
 
+/* INTRO */
+
 .intro h1{
-font-size:48px;
+font-size:50px;
+font-family:'Orbitron',sans-serif;
 }
 
 .intro p{
@@ -124,11 +150,13 @@ border-radius:15px;
 width:260px;
 margin:auto;
 transition:0.4s;
+border:1px solid rgba(80,150,255,0.2);
 }
 
 .card:hover{
 transform:translateY(-12px);
-background:#2563eb;
+box-shadow:0 0 25px #2563eb;
+background:linear-gradient(135deg,#3b82f6,#4c1d95,#020617);
 }
 
 /* SKILLS */
@@ -185,6 +213,7 @@ background:#2563eb;
 border-radius:25px;
 text-decoration:none;
 color:white;
+font-family:'Orbitron',sans-serif;
 }
 
 /* FOOTER */
@@ -215,7 +244,9 @@ padding:40px;
 
 <div class="planet"></div>
 
+<div class="profile-container">
 <img src="GK.jpg">
+</div>
 
 <div class="intro">
 
@@ -335,7 +366,7 @@ LinkedIn:
 
 <script>
 
-/* STAR UNIVERSE */
+/* TWINKLING STARS */
 
 const canvas=document.getElementById("space");
 const ctx=canvas.getContext("2d");
@@ -344,8 +375,10 @@ canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
 let stars=[];
+let mouse={x:null,y:null};
 
-for(let i=0;i<250;i++){
+for(let i=0;i<220;i++){
+
 stars.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
@@ -353,7 +386,13 @@ size:Math.random()*2,
 alpha:Math.random(),
 twinkle:Math.random()*0.02
 });
+
 }
+
+window.addEventListener("mousemove",e=>{
+mouse.x=e.x;
+mouse.y=e.y;
+});
 
 function drawStars(){
 
@@ -376,6 +415,41 @@ ctx.fill();
 
 ctx.globalAlpha=1;
 
+/* CONSTELLATION LINES */
+
+stars.forEach(s2=>{
+let dist=Math.hypot(s.x-s2.x,s.y-s2.y);
+
+if(dist<120){
+
+ctx.beginPath();
+ctx.moveTo(s.x,s.y);
+ctx.lineTo(s2.x,s2.y);
+ctx.strokeStyle="rgba(120,170,255,0.07)";
+ctx.stroke();
+
+}
+
+});
+
+/* MOUSE INTERACTION */
+
+if(mouse.x){
+
+let d=Math.hypot(s.x-mouse.x,s.y-mouse.y);
+
+if(d<120){
+
+ctx.beginPath();
+ctx.moveTo(s.x,s.y);
+ctx.lineTo(mouse.x,mouse.y);
+ctx.strokeStyle="rgba(100,200,255,0.3)";
+ctx.stroke();
+
+}
+
+}
+
 });
 
 requestAnimationFrame(drawStars);
@@ -384,7 +458,7 @@ requestAnimationFrame(drawStars);
 
 drawStars();
 
-/* ELECTRIC CIRCUIT BACKGROUND */
+/* ELECTRIC CIRCUIT */
 
 const circuitCanvas=document.getElementById("circuit");
 const cctx=circuitCanvas.getContext("2d");
@@ -418,7 +492,7 @@ if(dist<180){
 cctx.beginPath();
 cctx.moveTo(n.x,n.y);
 cctx.lineTo(n2.x,n2.y);
-cctx.strokeStyle="rgba(80,180,255,0.08)";
+cctx.strokeStyle="rgba(80,180,255,0.06)";
 cctx.stroke();
 
 }
