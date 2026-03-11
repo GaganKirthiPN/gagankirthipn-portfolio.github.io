@@ -16,11 +16,11 @@ body{
 margin:0;
 font-family:'Orbitron',sans-serif;
 color:white;
-background:#020617;
 overflow-x:hidden;
+background: radial-gradient(circle at bottom,#020617 0%,#000000 80%);
 }
 
-/* CANVAS */
+/* CANVAS BACKGROUND */
 
 #space{
 position:fixed;
@@ -28,7 +28,19 @@ top:0;
 left:0;
 width:100%;
 height:100%;
+z-index:-2;
+}
+
+/* ELECTRIC CIRCUIT CANVAS */
+
+#circuit{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
 z-index:-1;
+pointer-events:none;
 }
 
 /* NAVBAR */
@@ -39,7 +51,7 @@ top:0;
 width:100%;
 text-align:right;
 padding:20px;
-background:rgba(0,0,0,0.4);
+background:rgba(0,0,0,0.3);
 }
 
 nav a{
@@ -55,15 +67,37 @@ font-weight:300;
 display:flex;
 align-items:center;
 justify-content:center;
-gap:60px;
+gap:80px;
 padding-top:150px;
 padding-bottom:100px;
+position:relative;
 }
 
-.hero img{
-width:230px;
+/* PLANET */
+
+.planet{
+position:absolute;
+width:340px;
+height:340px;
 border-radius:50%;
-box-shadow:0 0 25px #2563eb;
+background: radial-gradient(circle at 30% 30%,#3b82f6,#020617);
+box-shadow:0 0 80px rgba(59,130,246,0.7);
+animation:spin 40s linear infinite;
+z-index:-1;
+}
+
+@keyframes spin{
+0%{transform:rotate(0deg)}
+100%{transform:rotate(360deg)}
+}
+
+/* PROFILE IMAGE */
+
+.hero img{
+width:220px;
+border-radius:50%;
+z-index:2;
+box-shadow:0 0 30px #2563eb;
 }
 
 .intro h1{
@@ -81,7 +115,7 @@ padding:80px 20px;
 text-align:center;
 }
 
-/* FLOAT CARDS */
+/* CARDS */
 
 .card{
 background:#1e293b;
@@ -132,7 +166,7 @@ transform:scale(1.05);
 box-shadow:0 0 30px #2563eb;
 }
 
-/* PROJECT GRID */
+/* GRID */
 
 .projects{
 display:flex;
@@ -167,6 +201,7 @@ padding:40px;
 <body>
 
 <canvas id="space"></canvas>
+<canvas id="circuit"></canvas>
 
 <nav>
 <a href="#about">About</a>
@@ -177,6 +212,8 @@ padding:40px;
 </nav>
 
 <div class="hero">
+
+<div class="planet"></div>
 
 <img src="GK.jpg">
 
@@ -298,7 +335,7 @@ LinkedIn:
 
 <script>
 
-/* CANVAS SETUP */
+/* STAR UNIVERSE */
 
 const canvas=document.getElementById("space");
 const ctx=canvas.getContext("2d");
@@ -306,120 +343,100 @@ const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
-/* STARS */
-
 let stars=[];
-let shootingStars=[];
-let mouse={x:null,y:null};
 
 for(let i=0;i<250;i++){
 stars.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
 size:Math.random()*2,
-speed:Math.random()*0.2
+alpha:Math.random(),
+twinkle:Math.random()*0.02
 });
 }
 
-/* SHOOTING STARS */
-
-function createShootingStar(){
-shootingStars.push({
-x:Math.random()*canvas.width,
-y:0,
-length:300,
-speed:8
-});
-}
-
-setInterval(createShootingStar,4000);
-
-/* MOUSE INTERACTION */
-
-window.addEventListener("mousemove",e=>{
-mouse.x=e.x;
-mouse.y=e.y;
-});
-
-/* DRAW */
-
-function draw(){
+function drawStars(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height);
 
-/* STARS */
-
 stars.forEach(s=>{
 
-s.y+=s.speed;
+s.alpha+=s.twinkle;
 
-if(s.y>canvas.height) s.y=0;
+if(s.alpha<=0 || s.alpha>=1){
+s.twinkle*=-1;
+}
+
+ctx.globalAlpha=s.alpha;
 
 ctx.beginPath();
 ctx.arc(s.x,s.y,s.size,0,Math.PI*2);
 ctx.fillStyle="white";
 ctx.fill();
 
-/* CONSTELLATION LINES */
-
-stars.forEach(s2=>{
-let dist=Math.hypot(s.x-s2.x,s.y-s2.y);
-
-if(dist<100){
-ctx.strokeStyle="rgba(100,150,255,0.1)";
-ctx.beginPath();
-ctx.moveTo(s.x,s.y);
-ctx.lineTo(s2.x,s2.y);
-ctx.stroke();
-}
-});
-
-/* MOUSE GALAXY EFFECT */
-
-if(mouse.x){
-let dist=Math.hypot(s.x-mouse.x,s.y-mouse.y);
-
-if(dist<120){
-ctx.beginPath();
-ctx.moveTo(s.x,s.y);
-ctx.lineTo(mouse.x,mouse.y);
-ctx.strokeStyle="rgba(80,180,255,0.3)";
-ctx.stroke();
-}
-}
+ctx.globalAlpha=1;
 
 });
 
-/* SHOOTING STARS */
+requestAnimationFrame(drawStars);
 
-shootingStars.forEach((s,i)=>{
+}
 
-ctx.beginPath();
-ctx.moveTo(s.x,s.y);
-ctx.lineTo(s.x+s.length,s.y+s.length);
-ctx.strokeStyle="white";
-ctx.lineWidth=2;
-ctx.stroke();
+drawStars();
 
-s.x+=s.speed;
-s.y+=s.speed;
+/* ELECTRIC CIRCUIT BACKGROUND */
 
-if(s.y>canvas.height){
-shootingStars.splice(i,1);
+const circuitCanvas=document.getElementById("circuit");
+const cctx=circuitCanvas.getContext("2d");
+
+circuitCanvas.width=window.innerWidth;
+circuitCanvas.height=window.innerHeight;
+
+let nodes=[];
+
+for(let i=0;i<40;i++){
+
+nodes.push({
+x:Math.random()*circuitCanvas.width,
+y:Math.random()*circuitCanvas.height
+});
+
+}
+
+function drawCircuit(){
+
+cctx.clearRect(0,0,circuitCanvas.width,circuitCanvas.height);
+
+nodes.forEach(n=>{
+
+nodes.forEach(n2=>{
+
+let dist=Math.hypot(n.x-n2.x,n.y-n2.y);
+
+if(dist<180){
+
+cctx.beginPath();
+cctx.moveTo(n.x,n.y);
+cctx.lineTo(n2.x,n2.y);
+cctx.strokeStyle="rgba(80,180,255,0.08)";
+cctx.stroke();
+
 }
 
 });
 
-requestAnimationFrame(draw);
+cctx.beginPath();
+cctx.arc(n.x,n.y,2,0,Math.PI*2);
+cctx.fillStyle="#3b82f6";
+cctx.fill();
+
+});
+
+requestAnimationFrame(drawCircuit);
+
 }
 
-draw();
-
-/* PARALLAX SCROLL */
-
-window.addEventListener("scroll",()=>{
-canvas.style.transform=`translateY(${window.scrollY*0.2}px)`;
-});
+drawCircuit();
 
 /* PROJECT ANIMATION */
 
