@@ -6,11 +6,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>GAGAN KIRTHI P N | Electrical & Electronics Engineer</title>
+<title>GAGAN KIRTHI P N | Electrical Engineer</title>
 
 <style>
-
-/* GLOBAL */
 
 html{
 scroll-behavior:smooth;
@@ -18,9 +16,10 @@ scroll-behavior:smooth;
 
 body{
 margin:0;
-font-family:Arial, sans-serif;
-color:white;
+font-family:Arial;
 background:#020617;
+color:white;
+overflow-x:hidden;
 }
 
 /* STAR BACKGROUND */
@@ -40,7 +39,7 @@ nav{
 position:fixed;
 top:0;
 width:100%;
-background:#020617;
+background:rgba(2,6,23,0.9);
 padding:15px;
 text-align:center;
 z-index:100;
@@ -62,17 +61,19 @@ color:#38bdf8;
 
 header{
 text-align:center;
-padding:120px 20px;
+padding:150px 20px;
 background:linear-gradient(135deg,#2563eb,#7c3aed);
 }
 
 header h1{
-font-size:50px;
+font-size:60px;
 margin-bottom:10px;
+text-shadow:0 0 20px #38bdf8;
 }
 
-header p{
-font-size:20px;
+.typing{
+font-size:22px;
+height:30px;
 }
 
 /* BUTTON */
@@ -88,7 +89,7 @@ text-decoration:none;
 font-weight:bold;
 }
 
-/* SECTIONS */
+/* SECTION */
 
 section{
 padding:80px 20px;
@@ -109,6 +110,12 @@ background:#1e293b;
 padding:25px;
 border-radius:12px;
 width:250px;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 20px #2563eb;
 }
 
 /* PROJECTS */
@@ -125,6 +132,12 @@ background:#1e293b;
 padding:20px;
 border-radius:10px;
 width:280px;
+transition:0.3s;
+}
+
+.project:hover{
+transform:scale(1.05);
+box-shadow:0 0 25px #2563eb;
 }
 
 /* CONTACT */
@@ -148,10 +161,7 @@ background:#020617;
 
 <body>
 
-<!-- STAR CANVAS -->
 <canvas id="stars"></canvas>
-
-<!-- NAVBAR -->
 
 <nav>
 <a href="#about">About</a>
@@ -160,23 +170,19 @@ background:#020617;
 <a href="#contact">Contact</a>
 </nav>
 
-<!-- HERO -->
-
 <header>
 
 <h1>Gagan Kirthi P N</h1>
 
-<p>Electrical & Electronics Engineer</p>
-
-<p>Embedded Systems | Smart Energy | IoT</p>
+<div class="typing" id="typing"></div>
 
 <a class="btn" href="#projects">View Projects</a>
 
-<a class="btn" href="GAGAN KIRTHI P N_RESUME.pdf" download>Download Resume</a>
+<a class="btn" href="Gagan_Kirthi_Resume.pdf" download>
+Download Resume
+</a>
 
 </header>
-
-<!-- ABOUT -->
 
 <section id="about">
 
@@ -184,15 +190,13 @@ background:#020617;
 
 <p>
 
-I am an Electrical & Electronics Engineering student passionate about  
-embedded systems, renewable energy technologies, and intelligent automation.  
-I enjoy building engineering solutions that combine hardware and software.
+Electrical & Electronics Engineering student passionate about
+Embedded Systems, Smart Energy Systems, IoT, and innovative engineering
+solutions combining hardware and software.
 
 </p>
 
 </section>
-
-<!-- SKILLS -->
 
 <section id="skills">
 
@@ -225,8 +229,6 @@ I enjoy building engineering solutions that combine hardware and software.
 
 </section>
 
-<!-- PROJECTS -->
-
 <section id="projects">
 
 <h2>Projects</h2>
@@ -235,12 +237,12 @@ I enjoy building engineering solutions that combine hardware and software.
 
 <div class="project">
 <h3>Solar Tracking System</h3>
-<p>Automatic solar panel tracking system using sensors and Arduino.</p>
+<p>Automatic solar panel tracking system using Arduino and sensors.</p>
 </div>
 
 <div class="project">
 <h3>Smart Energy Monitor</h3>
-<p>IoT-based electricity monitoring system using ESP32.</p>
+<p>IoT based electricity monitoring system using ESP32.</p>
 </div>
 
 <div class="project">
@@ -251,8 +253,6 @@ I enjoy building engineering solutions that combine hardware and software.
 </div>
 
 </section>
-
-<!-- CONTACT -->
 
 <section id="contact">
 
@@ -274,13 +274,11 @@ linkedin.com/in/gagankirthipn
 </a>
 </p>
 
-<a class="btn" href="Gagan_Kirthi_Resume.pdf" download>
+<a class="btn" href="GAGAN KIRTHI P N_RESUME.pdf" download>
 Download Resume
 </a>
 
 </section>
-
-<!-- FOOTER -->
 
 <footer>
 
@@ -288,17 +286,17 @@ Download Resume
 
 </footer>
 
-<!-- STAR ANIMATION -->
-
 <script>
 
-const canvas = document.getElementById("stars");
-const ctx = canvas.getContext("2d");
+/* STAR ANIMATION */
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+const canvas=document.getElementById("stars");
+const ctx=canvas.getContext("2d");
 
-let stars = [];
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let stars=[];
 
 for(let i=0;i<200;i++){
 
@@ -327,6 +325,49 @@ ctx.fill();
 }
 
 setInterval(draw,30);
+
+/* TYPING EFFECT */
+
+const text=[
+"Electrical & Electronics Engineer",
+"Embedded Systems Developer",
+"IoT Enthusiast",
+"Smart Energy Systems"
+];
+
+let i=0;
+let j=0;
+let current="";
+let isDeleting=false;
+
+function type(){
+
+current=text[i];
+
+if(!isDeleting){
+
+document.getElementById("typing").textContent=current.substring(0,j++);
+if(j>current.length){
+isDeleting=true;
+setTimeout(type,1000);
+return;
+}
+
+}else{
+
+document.getElementById("typing").textContent=current.substring(0,j--);
+if(j==0){
+isDeleting=false;
+i=(i+1)%text.length;
+}
+
+}
+
+setTimeout(type,100);
+
+}
+
+type();
 
 </script>
 
