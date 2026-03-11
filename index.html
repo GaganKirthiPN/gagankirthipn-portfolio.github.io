@@ -16,11 +16,11 @@ body{
 margin:0;
 font-family:'Playfair Display',serif;
 color:white;
-overflow-x:hidden;
 background: radial-gradient(circle at bottom,#020617 0%,#000000 85%);
+overflow-x:hidden;
 }
 
-/* CANVAS */
+/* BACKGROUND */
 
 #space{
 position:fixed;
@@ -28,17 +28,7 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-z-index:-2;
-}
-
-#circuit{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
 z-index:-1;
-pointer-events:none;
 }
 
 /* NAVBAR */
@@ -47,17 +37,20 @@ nav{
 position:fixed;
 top:0;
 width:100%;
-text-align:right;
-padding:20px;
-background:rgba(0,0,0,0.3);
+display:flex;
+justify-content:center;
+gap:30px;
+padding:18px;
+background:rgba(0,0,0,0.35);
+backdrop-filter:blur(6px);
+z-index:10;
 }
 
 nav a{
 color:#cbd5f5;
-margin:15px;
 text-decoration:none;
-font-weight:300;
 font-family:'Orbitron',sans-serif;
+font-size:14px;
 }
 
 /* HERO */
@@ -66,123 +59,97 @@ font-family:'Orbitron',sans-serif;
 display:flex;
 align-items:center;
 justify-content:center;
-gap:80px;
-padding-top:150px;
-padding-bottom:100px;
-position:relative;
-}
-
-/* 3D PLANET */
-
-.planet{
-position:absolute;
-width:420px;
-height:420px;
-border-radius:50%;
-background: radial-gradient(circle at 30% 30%,#3b82f6,#020617);
-box-shadow:0 0 120px rgba(59,130,246,0.7);
-animation:rotatePlanet 35s linear infinite;
-z-index:-1;
-transform-style:preserve-3d;
-}
-
-@keyframes rotatePlanet{
-0%{transform:rotateY(0deg)}
-100%{transform:rotateY(360deg)}
-}
-
-/* PROFILE */
-
-.profile-container{
-position:relative;
-}
-
-.profile-container::before{
-content:"";
-position:absolute;
-top:-30px;
-left:-30px;
-width:280px;
-height:280px;
-border-radius:50%;
-background:radial-gradient(circle,#3b82f6,#000000);
-filter:blur(50px);
-z-index:-1;
-animation:pulseGlow 4s infinite;
-}
-
-@keyframes pulseGlow{
-0%{opacity:0.7}
-50%{opacity:1}
-100%{opacity:0.7}
+gap:60px;
+padding-top:140px;
+padding-bottom:90px;
+flex-wrap:wrap;
+text-align:center;
 }
 
 .hero img{
-width:220px;
+width:200px;
 border-radius:50%;
 box-shadow:0 0 30px #2563eb;
 }
 
-/* INTRO */
-
 .intro h1{
-font-size:50px;
 font-family:'Orbitron',sans-serif;
+font-size:42px;
 }
 
 .intro p{
 color:#cbd5f5;
 }
 
+/* BUTTON */
+
+.btn{
+display:inline-block;
+margin-top:15px;
+padding:10px 20px;
+background:#2563eb;
+border-radius:20px;
+text-decoration:none;
+color:white;
+font-family:'Orbitron',sans-serif;
+}
+
 /* SECTIONS */
 
 section{
 padding:80px 20px;
-text-align:center;
-}
-
-/* CARDS */
-
-.card{
-background:#1e293b;
-padding:25px;
-border-radius:15px;
-width:260px;
+max-width:1100px;
 margin:auto;
-transition:0.4s;
-border:1px solid rgba(80,150,255,0.2);
 }
 
-.card:hover{
-transform:translateY(-12px);
-box-shadow:0 0 25px #2563eb;
-background:linear-gradient(135deg,#3b82f6,#4c1d95,#020617);
+/* FADE ANIMATION */
+
+.fade{
+opacity:0;
+transform:translateY(40px);
+transition:all 1s ease;
+}
+
+.fade.show{
+opacity:1;
+transform:translateY(0);
 }
 
 /* SKILLS */
 
 .skills{
-display:flex;
-gap:40px;
-justify-content:center;
-flex-wrap:wrap;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:30px;
+}
+
+.card{
+background:#1e293b;
+padding:25px;
+border-radius:12px;
+transition:0.4s;
+text-align:center;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 25px #2563eb;
+background:linear-gradient(135deg,#1e293b,#4c1d95);
 }
 
 /* PROJECTS */
 
+.projects{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:30px;
+}
+
 .project{
-width:300px;
 background:#1e293b;
 border-radius:12px;
 overflow:hidden;
 transition:0.4s;
-opacity:0;
-transform:translateY(40px);
-}
-
-.project.show{
-opacity:1;
-transform:translateY(0);
 }
 
 .project img{
@@ -194,26 +161,11 @@ transform:scale(1.05);
 box-shadow:0 0 30px #2563eb;
 }
 
-/* GRID */
+/* CONTACT */
 
-.projects{
-display:flex;
-gap:30px;
-flex-wrap:wrap;
-justify-content:center;
-}
-
-/* BUTTON */
-
-.btn{
-display:inline-block;
-margin-top:15px;
-padding:12px 22px;
-background:#2563eb;
-border-radius:25px;
+.contact a{
+color:#60a5fa;
 text-decoration:none;
-color:white;
-font-family:'Orbitron',sans-serif;
 }
 
 /* FOOTER */
@@ -221,6 +173,33 @@ font-family:'Orbitron',sans-serif;
 footer{
 text-align:center;
 padding:40px;
+font-size:14px;
+color:#94a3b8;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+nav{
+flex-wrap:wrap;
+gap:15px;
+font-size:13px;
+}
+
+.hero{
+flex-direction:column;
+gap:25px;
+}
+
+.hero img{
+width:160px;
+}
+
+.intro h1{
+font-size:30px;
+}
+
 }
 
 </style>
@@ -230,7 +209,6 @@ padding:40px;
 <body>
 
 <canvas id="space"></canvas>
-<canvas id="circuit"></canvas>
 
 <nav>
 <a href="#about">About</a>
@@ -240,13 +218,9 @@ padding:40px;
 <a href="#contact">Contact</a>
 </nav>
 
-<div class="hero">
+<div class="hero fade">
 
-<div class="planet"></div>
-
-<div class="profile-container">
 <img src="GK.jpg">
-</div>
 
 <div class="intro">
 
@@ -256,13 +230,15 @@ padding:40px;
 
 <p>Embedded Systems | IoT | Smart Energy</p>
 
-<a class="btn" href="GAGAN KIRTHI P N_RESUME.pdf" download>Download Resume</a>
+<a class="btn" href="GAGAN KIRTHI P N_RESUME.pdf" download>
+Download Resume
+</a>
 
 </div>
 
 </div>
 
-<section id="about">
+<section id="about" class="fade">
 
 <h2>About Me</h2>
 
@@ -273,7 +249,7 @@ embedded systems, smart energy technologies and intelligent automation.
 
 </section>
 
-<section id="education">
+<section id="education" class="fade">
 
 <h2>Education</h2>
 
@@ -289,7 +265,7 @@ embedded systems, smart energy technologies and intelligent automation.
 
 </section>
 
-<section id="skills">
+<section id="skills" class="fade">
 
 <h2>Skills</h2>
 
@@ -320,7 +296,7 @@ embedded systems, smart energy technologies and intelligent automation.
 
 </section>
 
-<section id="projects">
+<section id="projects" class="fade">
 
 <h2>Projects</h2>
 
@@ -342,7 +318,7 @@ embedded systems, smart energy technologies and intelligent automation.
 
 </section>
 
-<section id="contact">
+<section id="contact" class="fade contact">
 
 <h2>Contact</h2>
 
@@ -350,18 +326,24 @@ embedded systems, smart energy technologies and intelligent automation.
 
 <p>
 GitHub:
-<a href="https://github.com/gagankirthipn">github.com/gagankirthipn</a>
+<a href="https://github.com/gagankirthipn">
+github.com/gagankirthipn
+</a>
 </p>
 
 <p>
 LinkedIn:
-<a href="https://linkedin.com/in/gagankirthipn">linkedin.com/in/gagankirthipn</a>
+<a href="https://linkedin.com/in/gagankirthipn">
+linkedin.com/in/gagankirthipn
+</a>
 </p>
 
 </section>
 
 <footer>
+
 © 2026 Gagan Kirthi P N
+
 </footer>
 
 <script>
@@ -375,9 +357,8 @@ canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
 let stars=[];
-let mouse={x:null,y:null};
 
-for(let i=0;i<220;i++){
+for(let i=0;i<200;i++){
 
 stars.push({
 x:Math.random()*canvas.width,
@@ -388,11 +369,6 @@ twinkle:Math.random()*0.02
 });
 
 }
-
-window.addEventListener("mousemove",e=>{
-mouse.x=e.x;
-mouse.y=e.y;
-});
 
 function drawStars(){
 
@@ -415,41 +391,6 @@ ctx.fill();
 
 ctx.globalAlpha=1;
 
-/* CONSTELLATION LINES */
-
-stars.forEach(s2=>{
-let dist=Math.hypot(s.x-s2.x,s.y-s2.y);
-
-if(dist<120){
-
-ctx.beginPath();
-ctx.moveTo(s.x,s.y);
-ctx.lineTo(s2.x,s2.y);
-ctx.strokeStyle="rgba(120,170,255,0.07)";
-ctx.stroke();
-
-}
-
-});
-
-/* MOUSE INTERACTION */
-
-if(mouse.x){
-
-let d=Math.hypot(s.x-mouse.x,s.y-mouse.y);
-
-if(d<120){
-
-ctx.beginPath();
-ctx.moveTo(s.x,s.y);
-ctx.lineTo(mouse.x,mouse.y);
-ctx.strokeStyle="rgba(100,200,255,0.3)";
-ctx.stroke();
-
-}
-
-}
-
 });
 
 requestAnimationFrame(drawStars);
@@ -458,61 +399,7 @@ requestAnimationFrame(drawStars);
 
 drawStars();
 
-/* ELECTRIC CIRCUIT */
-
-const circuitCanvas=document.getElementById("circuit");
-const cctx=circuitCanvas.getContext("2d");
-
-circuitCanvas.width=window.innerWidth;
-circuitCanvas.height=window.innerHeight;
-
-let nodes=[];
-
-for(let i=0;i<40;i++){
-
-nodes.push({
-x:Math.random()*circuitCanvas.width,
-y:Math.random()*circuitCanvas.height
-});
-
-}
-
-function drawCircuit(){
-
-cctx.clearRect(0,0,circuitCanvas.width,circuitCanvas.height);
-
-nodes.forEach(n=>{
-
-nodes.forEach(n2=>{
-
-let dist=Math.hypot(n.x-n2.x,n.y-n2.y);
-
-if(dist<180){
-
-cctx.beginPath();
-cctx.moveTo(n.x,n.y);
-cctx.lineTo(n2.x,n2.y);
-cctx.strokeStyle="rgba(80,180,255,0.06)";
-cctx.stroke();
-
-}
-
-});
-
-cctx.beginPath();
-cctx.arc(n.x,n.y,2,0,Math.PI*2);
-cctx.fillStyle="#3b82f6";
-cctx.fill();
-
-});
-
-requestAnimationFrame(drawCircuit);
-
-}
-
-drawCircuit();
-
-/* PROJECT ANIMATION */
+/* SCROLL FADE */
 
 const observer=new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
@@ -522,7 +409,7 @@ entry.target.classList.add("show");
 });
 });
 
-document.querySelectorAll(".project").forEach(el=>{
+document.querySelectorAll(".fade").forEach(el=>{
 observer.observe(el);
 });
 
