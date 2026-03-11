@@ -1,35 +1,79 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Rahul | Electrical Engineer</title>
+<title>Gagan Kirthi | Electrical Engineer</title>
+
 <style>
+
 body{
 font-family: Arial;
 margin:0;
-background:#111;
+background:#0f172a;
 color:white;
-text-align:center;
 }
 
 header{
-padding:80px;
-background:#222;
+text-align:center;
+padding:100px 20px;
+background:linear-gradient(135deg,#2563eb,#7c3aed);
+}
+
+header h1{
+font-size:50px;
+}
+
+header p{
+font-size:20px;
+}
+
+.btn{
+display:inline-block;
+margin:10px;
+padding:12px 25px;
+background:white;
+color:black;
+border-radius:25px;
+text-decoration:none;
+font-weight:bold;
 }
 
 section{
-padding:50px;
+padding:60px;
+text-align:center;
+}
+
+.skills{
+display:flex;
+justify-content:center;
+gap:40px;
+flex-wrap:wrap;
+}
+
+.card{
+background:#1e293b;
+padding:25px;
+border-radius:12px;
+width:250px;
+}
+
+.project-grid{
+display:flex;
+gap:30px;
+justify-content:center;
+flex-wrap:wrap;
 }
 
 .project{
-background:#333;
-margin:20px;
+background:#1e293b;
 padding:20px;
 border-radius:10px;
+width:280px;
 }
 
-a{
-color:#00ffff;
-text-decoration:none;
+footer{
+text-align:center;
+padding:30px;
+background:#020617;
 }
 
 </style>
@@ -38,50 +82,96 @@ text-decoration:none;
 <body>
 
 <header>
-<h1>Hello, I'm Rahul</h1>
+<h1>Gagan Kirthi</h1>
 <p>Electrical & Electronics Engineer</p>
-<p>Embedded Systems | Smart Grid | IoT</p>
+<p>Embedded Systems | Smart Energy | IoT</p>
+
+<a class="btn" href="#projects">View Projects</a>
+<a class="btn" href="#">Download Resume</a>
 </header>
 
 <section>
+
 <h2>About Me</h2>
-<p>I am passionate about renewable energy systems, embedded electronics, and smart grid technologies.</p>
+
+<p>
+I am an Electrical & Electronics Engineering student passionate about
+embedded systems, renewable energy technologies, and intelligent automation.
+</p>
+
 </section>
 
 <section>
+
+<h2>Skills</h2>
+
+<div class="skills">
+
+<div class="card">
+<h3>Programming</h3>
+<p>Python</p>
+<p>C</p>
+<p>MATLAB</p>
+</div>
+
+<div class="card">
+<h3>Hardware</h3>
+<p>Arduino</p>
+<p>ESP32</p>
+<p>Raspberry Pi</p>
+</div>
+
+<div class="card">
+<h3>Tools</h3>
+<p>Proteus</p>
+<p>LTSpice</p>
+<p>AutoCAD Electrical</p>
+</div>
+
+</div>
+
+</section>
+
+<section id="projects">
+
 <h2>Projects</h2>
 
-<div class="project">
-<h3>Smart Energy Monitoring System</h3>
-<p>IoT based electricity monitoring system using ESP32.</p>
-</div>
+<div class="project-grid">
 
 <div class="project">
 <h3>Solar Tracking System</h3>
-<p>Automatic solar panel tracking using sensors and Arduino.</p>
+<p>Automatic solar panel tracking system using sensors and Arduino.</p>
+</div>
+
+<div class="project">
+<h3>Smart Energy Monitor</h3>
+<p>IoT-based electricity monitoring system using ESP32.</p>
 </div>
 
 <div class="project">
 <h3>IoT Smart Home</h3>
-<p>Remote home automation system using mobile app.</p>
+<p>Remote home automation system with mobile control.</p>
+</div>
+
 </div>
 
 </section>
 
 <section>
-<h2>Skills</h2>
 
-<p>Python | C Programming | MATLAB</p>
-<p>Arduino | ESP32 | Raspberry Pi</p>
-<p>Power Systems | Embedded Systems</p>
-
-</section>
-
-<section>
 <h2>Contact</h2>
-<p>Email: rahul@email.com</p>
-<p>GitHub: github.com/rahul-eee</p>
+
+<p>Email: yourmail@gmail.com</p>
+<p>GitHub: github.com/yourusername</p>
+
 </section>
+
+<footer>
+
+<p>© 2026 Gagan Kirthi</p>
+
+</footer>
 
 </body>
+
 </html>
