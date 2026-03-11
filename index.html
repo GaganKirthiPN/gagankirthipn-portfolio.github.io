@@ -1,20 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<title>GAGAN KIRTHI P N | Electrical and Electronics Engineer</title>
-<nav>
-<a href="#about">About</a>
-<a href="#skills">Skills</a>
-<a href="#projects">Projects</a>
-<a href="#contact">Contact</a>
-</nav>
-  nav{
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gagan Kirthi P N | Electrical & Electronics Engineer</title>
+
+<style>
+
+/* GLOBAL */
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+margin:0;
+font-family:Arial, sans-serif;
+color:white;
+background:#020617;
+}
+
+/* STAR BACKGROUND */
+
+#stars{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:-1;
+}
+
+/* NAVBAR */
+
+nav{
 position:fixed;
 top:0;
 width:100%;
 background:#020617;
 padding:15px;
 text-align:center;
+z-index:100;
 }
 
 nav a{
@@ -22,67 +51,31 @@ color:white;
 margin:20px;
 text-decoration:none;
 font-weight:bold;
-}
-<style>
-#stars{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#020617;
-z-index:-1;
-}
-</style>
-<script>
-const canvas = document.getElementById("stars");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let stars = [];
-
-for(let i=0;i<200;i++){
-stars.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-size:Math.random()*2
-});
+font-size:18px;
 }
 
-function draw(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle="white";
-
-stars.forEach(star=>{
-ctx.beginPath();
-ctx.arc(star.x,star.y,star.size,0,Math.PI*2);
-ctx.fill();
-});
+nav a:hover{
+color:#38bdf8;
 }
 
-setInterval(draw,30);
-</script>
-  
-body{
-<canvas id="stars"></canvas>
-}
+/* HERO */
 
 header{
 text-align:center;
-padding:100px 20px;
+padding:120px 20px;
 background:linear-gradient(135deg,#2563eb,#7c3aed);
 }
 
 header h1{
 font-size:50px;
+margin-bottom:10px;
 }
 
 header p{
 font-size:20px;
 }
+
+/* BUTTON */
 
 .btn{
 display:inline-block;
@@ -95,10 +88,14 @@ text-decoration:none;
 font-weight:bold;
 }
 
+/* SECTIONS */
+
 section{
-padding:60px;
+padding:80px 20px;
 text-align:center;
 }
+
+/* SKILLS */
 
 .skills{
 display:flex;
@@ -114,6 +111,8 @@ border-radius:12px;
 width:250px;
 }
 
+/* PROJECTS */
+
 .project-grid{
 display:flex;
 gap:30px;
@@ -128,6 +127,15 @@ border-radius:10px;
 width:280px;
 }
 
+/* CONTACT */
+
+#contact a{
+color:#38bdf8;
+text-decoration:none;
+}
+
+/* FOOTER */
+
 footer{
 text-align:center;
 padding:30px;
@@ -135,31 +143,58 @@ background:#020617;
 }
 
 </style>
+
 </head>
 
 <body>
 
+<!-- STAR CANVAS -->
+<canvas id="stars"></canvas>
+
+<!-- NAVBAR -->
+
+<nav>
+<a href="#about">About</a>
+<a href="#skills">Skills</a>
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<!-- HERO -->
+
 <header>
-<h1>Gagan Kirthi</h1>
+
+<h1>Gagan Kirthi P N</h1>
+
 <p>Electrical & Electronics Engineer</p>
+
 <p>Embedded Systems | Smart Energy | IoT</p>
 
 <a class="btn" href="#projects">View Projects</a>
-<a class="btn" href="#">Download Resume</a>
+
+<a class="btn" href="Gagan_Kirthi_Resume.pdf" download>Download Resume</a>
+
 </header>
 
-<section>
+<!-- ABOUT -->
+
+<section id="about">
 
 <h2>About Me</h2>
 
 <p>
-I am an Electrical & Electronics Engineering student passionate about
-embedded systems, renewable energy technologies, and intelligent automation.
+
+I am an Electrical & Electronics Engineering student passionate about  
+embedded systems, renewable energy technologies, and intelligent automation.  
+I enjoy building engineering solutions that combine hardware and software.
+
 </p>
 
 </section>
 
-<section>
+<!-- SKILLS -->
+
+<section id="skills">
 
 <h2>Skills</h2>
 
@@ -190,6 +225,8 @@ embedded systems, renewable energy technologies, and intelligent automation.
 
 </section>
 
+<!-- PROJECTS -->
+
 <section id="projects">
 
 <h2>Projects</h2>
@@ -215,20 +252,83 @@ embedded systems, renewable energy technologies, and intelligent automation.
 
 </section>
 
-<section>
+<!-- CONTACT -->
+
+<section id="contact">
 
 <h2>Contact</h2>
-  
+
 <p>Email: gagankirthi2004@gmail.com</p>
-<p>GitHub: github.com/gagankirthipn</p>
-<p>Linkedin: linkedin.com/in/gagankirthipn</p>
+
+<p>
+GitHub:
+<a href="https://github.com/gagankirthipn" target="_blank">
+github.com/gagankirthipn
+</a>
+</p>
+
+<p>
+LinkedIn:
+<a href="https://linkedin.com/in/gagankirthipn" target="_blank">
+linkedin.com/in/gagankirthipn
+</a>
+</p>
+
+<a class="btn" href="Gagan_Kirthi_Resume.pdf" download>
+Download Resume
+</a>
+
 </section>
+
+<!-- FOOTER -->
 
 <footer>
 
 <p>© 2026 Gagan Kirthi P N</p>
 
 </footer>
+
+<!-- STAR ANIMATION -->
+
+<script>
+
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+
+for(let i=0;i<200;i++){
+
+stars.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+size:Math.random()*2
+});
+
+}
+
+function draw(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="white";
+
+stars.forEach(star=>{
+
+ctx.beginPath();
+ctx.arc(star.x,star.y,star.size,0,Math.PI*2);
+ctx.fill();
+
+});
+
+}
+
+setInterval(draw,30);
+
+</script>
 
 </body>
 
